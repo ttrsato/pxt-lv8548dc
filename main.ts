@@ -5,17 +5,17 @@ enum Motor {
 
 enum Rotor_Direction {
     //% block="Forward-Open"
-    Forward_Open = 0,
+    FORWARD_OPEN = 0,
     //% block="Forward-Break"
-    Forward_Break = 1,
+    FORWARD_BRAKE = 1,
     //% block="Reverse-Open"
-    Reverse_Open = 2,
+    REVERSE_OPEN = 2,
     //% block="Reverse-Break"
-    Reverse_Break = 3,
+    REVERSE_BRAKE = 3,
     //% block="Open"
-    Open = 4,
+    OPEN = 4,
     //% block="Break"
-    Break = 5
+    BRAKE = 5
 }
 
 enum PWM_Freq {
@@ -30,10 +30,12 @@ enum PWM_Freq {
 }
 
 enum Start {
-    //% block="OFF"
-    OFF = 0,
-    //% block="ON"
-    ON = 1
+    //% block="Free"
+    FREE = 0,
+    //% block="Run"
+    RUN = 1,
+    //% block="Brake"
+    BRAKE = 2,
 }
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
