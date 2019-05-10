@@ -37,7 +37,7 @@ enum ON_OFF_Flag {
 }
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
-namespace lv8548 {
+namespace lv8548dc {
     //% blockId=show_strings block="Init serial tx = %tx rx = %rx"
     //% tx.defl=SerialPin.P2
     //% rx.defl=SerialPin.P8
