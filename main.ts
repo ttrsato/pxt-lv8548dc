@@ -38,9 +38,6 @@ enum Start {
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
 namespace lv8548dc {
-    export function setDelay(ms: number): void {
-        basic.pause(ms)
-    }
     //% blockId=show_strings block="Init serial tx = %tx rx = %rx"
     //% tx.defl=SerialPin.P2
     //% rx.defl=SerialPin.P1
