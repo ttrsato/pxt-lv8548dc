@@ -20,27 +20,30 @@ enum Rotor_Direction {
 
 enum PWM_Freq {
     //% block="7.813kHz"
-    DIV1_8 = 0,
+    F_7P813K = 0,
     //% block="0.977kHz"
-    DIV1_64 = 1,
+    F_0P977K = 1,
     //% block="0.244kHz"
-    DIV1_256 = 2,
+    F_0P244K = 2,
     //% block="0.061kHz"
-    DIV1_1024 = 3
+    F_0P061K = 3
 }
 
-enum ON_OFF_Flag {
-    //% block="Stop"
+enum Start {
+    //% block="OFF"
     OFF = 0,
-    //% block="Run"
+    //% block="ON"
     ON = 1
 }
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
 namespace lv8548dc {
+    export function setDelay(ms: number): void {
+        basic.pause(ms)
+    }
     //% blockId=show_strings block="Init serial tx = %tx rx = %rx"
     //% tx.defl=SerialPin.P2
-    //% rx.defl=SerialPin.P8
+    //% rx.defl=SerialPin.P1
     export function init(tx: SerialPin, rx: SerialPin): void {
         serial.redirect(
             tx,
@@ -95,7 +98,7 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setpwmfreqency block="Set PWM frequency = %freq"
-    export function setPWMFreqency(freq: PWM_Freq): void {
+    export function setPWMFrequency(freq: PWM_Freq): void {
         let bufr = pins.createBuffer(5);
         // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
@@ -107,7 +110,7 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setstartflag block="%en %ch motor"
-    export function setStartFlag(en: ON_OFF_Flag, ch: Motor): void {
+    export function setStartFlag(ch: Motor, en: Start): void {
         let bufr = pins.createBuffer(6);
         // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
