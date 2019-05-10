@@ -5,44 +5,42 @@ enum Motor {
 
 enum Rotor_Direction {
     //% block="Forward-Open"
-    FORWARD_OPEN = 0,
+    Forward_Open = 0,
     //% block="Forward-Break"
-    FORWARD_BRAKE = 1,
+    Forward_Break = 1,
     //% block="Reverse-Open"
-    REVERSE_OPEN = 2,
+    Reverse_Open = 2,
     //% block="Reverse-Break"
-    REVERSE_BRAKE = 3,
+    Reverse_Break = 3,
     //% block="Open"
-    OPEN = 4,
+    Open = 4,
     //% block="Break"
-    BRAKE = 5
+    Break = 5
 }
 
 enum PWM_Freq {
     //% block="7.813kHz"
-    F_7P813K = 0,
+    DIV1_8 = 0,
     //% block="0.977kHz"
-    F_0P977K = 1,
+    DIV1_64 = 1,
     //% block="0.244kHz"
-    F_0P244K = 2,
+    DIV1_256 = 2,
     //% block="0.061kHz"
-    F_0P061K = 3
+    DIV1_1024 = 3
 }
 
-enum State {
-    //% block="Free"
-    FREE = 0,
+enum ON_OFF_Flag {
+    //% block="Stop"
+    OFF = 0,
     //% block="Run"
-    RUN = 1,
-    //% block="Brake"
-    BRAKE = 2,
+    ON = 1
 }
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
-namespace lv8548dc {
+namespace lv8548 {
     //% blockId=show_strings block="Init serial tx = %tx rx = %rx"
     //% tx.defl=SerialPin.P2
-    //% rx.defl=SerialPin.P1
+    //% rx.defl=SerialPin.P8
     export function init(tx: SerialPin, rx: SerialPin): void {
         serial.redirect(
             tx,
@@ -72,6 +70,7 @@ namespace lv8548dc {
     //% blockId=lv8548dc_setrotation block="Set %ch motor to %sel"
     export function setRotation(ch: Motor, sel: Rotor_Direction): void {
         let bufr = pins.createBuffer(6);
+        // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
         bufr.setNumber(NumberFormat.UInt8LE, 1, 0xFF)
         bufr.setNumber(NumberFormat.UInt8LE, 2, 0x03)
@@ -96,7 +95,7 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setpwmfreqency block="Set PWM frequency = %freq"
-    export function setPWMFrequency(freq: PWM_Freq): void {
+    export function setPWMFreqency(freq: PWM_Freq): void {
         let bufr = pins.createBuffer(5);
         // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
@@ -107,8 +106,8 @@ namespace lv8548dc {
         serial.writeBuffer(bufr)
     }
 
-    //% blockId=lv8548dc_setstartflag block="Set%ch|motor%en"
-    export function setStartFlag(ch: Motor, en: State): void {
+    //% blockId=lv8548dc_setstartflag block="%en %ch motor"
+    export function setStartFlag(en: ON_OFF_Flag, ch: Motor): void {
         let bufr = pins.createBuffer(6);
         // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
