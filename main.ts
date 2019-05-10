@@ -3,44 +3,46 @@ enum Motor {
     CH1 = 1
 }
 
-enum Rotor_Direction {
+enum Drive_Mode {
     //% block="Forward-Open"
-    Forward_Open = 0,
-    //% block="Forward-Break"
-    Forward_Break = 1,
+    FORWARD_OPEN = 0,
+    //% block="Forward-Brake"
+    FORWARD_BRAKE = 1,
     //% block="Reverse-Open"
-    Reverse_Open = 2,
-    //% block="Reverse-Break"
-    Reverse_Break = 3,
+    REVERSE_OPEN = 2,
+    //% block="Reverse-Brake"
+    REVERSE_BRAKE = 3,
     //% block="Open"
-    Open = 4,
-    //% block="Break"
-    Break = 5
+    OPEN = 4,
+    //% block="Brake"
+    BRAKE = 5
 }
 
 enum PWM_Freq {
     //% block="7.813kHz"
-    DIV1_8 = 0,
+    F_7P813K = 0,
     //% block="0.977kHz"
-    DIV1_64 = 1,
+    F_0P977K = 1,
     //% block="0.244kHz"
-    DIV1_256 = 2,
+    F_0P244K = 2,
     //% block="0.061kHz"
-    DIV1_1024 = 3
+    F_0P061K = 3
 }
 
-enum ON_OFF_Flag {
-    //% block="Stop"
-    OFF = 0,
+enum State {
+    //% block="Open"
+    OPEN = 0,
     //% block="Run"
-    ON = 1
+    RUN = 1,
+    //% block="Brake"
+    BRAKE = 0
 }
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
 namespace lv8548dc {
     //% blockId=show_strings block="Init serial tx = %tx rx = %rx"
     //% tx.defl=SerialPin.P2
-    //% rx.defl=SerialPin.P8
+    //% rx.defl=SerialPin.P1
     export function init(tx: SerialPin, rx: SerialPin): void {
         serial.redirect(
             tx,
@@ -68,9 +70,8 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setrotation block="Set %ch motor to %sel"
-    export function setRotation(ch: Motor, sel: Rotor_Direction): void {
+    export function setRotation(ch: Motor, sel: Drive_Mode): void {
         let bufr = pins.createBuffer(6);
-        // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
         bufr.setNumber(NumberFormat.UInt8LE, 1, 0xFF)
         bufr.setNumber(NumberFormat.UInt8LE, 2, 0x03)
@@ -94,10 +95,9 @@ namespace lv8548dc {
         serial.writeBuffer(bufr)
     }
 
-    //% blockId=lv8548dc_setpwmfreqency block="Set PWM frequency = %freq"
-    export function setPWMFreqency(freq: PWM_Freq): void {
+    //% blockId=lv8548dc_setpwmfrequency block="Set PWM frequency = %freq"
+    export function setPWMFrequency(freq: PWM_Freq): void {
         let bufr = pins.createBuffer(5);
-        // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
         bufr.setNumber(NumberFormat.UInt8LE, 1, 0xFF)
         bufr.setNumber(NumberFormat.UInt8LE, 2, 0x02)
@@ -107,9 +107,8 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setstartflag block="%en %ch motor"
-    export function setStartFlag(en: ON_OFF_Flag, ch: Motor): void {
+    export function setStartFlag(en: State, ch: Motor): void {
         let bufr = pins.createBuffer(6);
-        // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
         bufr.setNumber(NumberFormat.UInt8LE, 1, 0xFF)
         bufr.setNumber(NumberFormat.UInt8LE, 2, 0x03)
