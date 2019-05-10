@@ -29,7 +29,7 @@ enum PWM_Freq {
     F_0P061K = 3
 }
 
-enum Start {
+enum State {
     //% block="Free"
     FREE = 0,
     //% block="Run"
@@ -72,7 +72,6 @@ namespace lv8548dc {
     //% blockId=lv8548dc_setrotation block="Set %ch motor to %sel"
     export function setRotation(ch: Motor, sel: Rotor_Direction): void {
         let bufr = pins.createBuffer(6);
-        // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
         bufr.setNumber(NumberFormat.UInt8LE, 1, 0xFF)
         bufr.setNumber(NumberFormat.UInt8LE, 2, 0x03)
@@ -109,7 +108,7 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setstartflag block="%en %ch motor"
-    export function setStartFlag(ch: Motor, en: Start): void {
+    export function setStartFlag(ch: Motor, en: State): void {
         let bufr = pins.createBuffer(6);
         // setRotation
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
