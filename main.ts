@@ -3,7 +3,7 @@ enum Motor {
     CH1 = 1
 }
 
-enum Drive_Mode {
+enum DriveMode {
     //% block="Forward-Open"
     FORWARD_OPEN = 0,
     //% block="Forward-Brake"
@@ -18,7 +18,7 @@ enum Drive_Mode {
     BRAKE = 5
 }
 
-enum PWM_Freq {
+enum PWMFreq {
     //% block="7.813kHz"
     F_7P813K = 0,
     //% block="0.977kHz"
@@ -70,7 +70,7 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setrotation block="Set %ch motor to %sel"
-    export function setRotation(ch: Motor, sel: Drive_Mode): void {
+    export function setRotation(ch: Motor, sel: DriveMode): void {
         let bufr = pins.createBuffer(6);
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
         bufr.setNumber(NumberFormat.UInt8LE, 1, 0xFF)
@@ -96,7 +96,7 @@ namespace lv8548dc {
     }
 
     //% blockId=lv8548dc_setpwmfrequency block="Set PWM frequency = %freq"
-    export function setPWMFrequency(freq: PWM_Freq): void {
+    export function setPWMFrequency(freq: PWMFreq): void {
         let bufr = pins.createBuffer(5);
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
         bufr.setNumber(NumberFormat.UInt8LE, 1, 0xFF)
