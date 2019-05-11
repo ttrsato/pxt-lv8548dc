@@ -81,7 +81,7 @@ namespace lv8548dc {
         serial.writeBuffer(bufr)
     }
 
-    //% blockId=lv8548dc_setctlvoltage block="Set %ch DC motor voltage percent %duty"
+    //% blockId=lv8548dc_setctlvoltage block="Set %ch DC motor voltage percent to %duty"
     //% duty.min=0 duty.max=100
     export function setCtlVoltage(ch: Motor, duty: number): void {
         let bufr = pins.createBuffer(6);
