@@ -40,7 +40,7 @@ enum State {
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
 namespace lv8548dc {
-    //% blockId=show_strings block="Init LV8548DC tx:%tx|rx:%rx"
+    //% blockId=show_strings block="Init LV8548DC tx to %tx|rx to %rx"
     //% tx.defl=SerialPin.P2
     //% rx.defl=SerialPin.P1
     export function init(tx: SerialPin, rx: SerialPin): void {
