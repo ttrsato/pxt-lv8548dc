@@ -81,7 +81,7 @@ namespace lv8548dc {
         serial.writeBuffer(bufr)
     }
 
-    //% blockId=lv8548dc_setctlvoltage block="Set %ch motor pwm duty = %duty"
+    //% blockId=lv8548dc_setctlvoltage block="Set %ch motor pwm duty to %duty"
     //% duty.min=0 duty.max=100
     export function setCtlVoltage(ch: Motor, duty: number): void {
         let bufr = pins.createBuffer(6);
@@ -95,7 +95,7 @@ namespace lv8548dc {
         serial.writeBuffer(bufr)
     }
 
-    //% blockId=lv8548dc_setpwmfrequency block="Set PWM frequency = %freq"
+    //% blockId=lv8548dc_setpwmfrequency block="Set PWM frequency to %freq"
     export function setPWMFrequency(freq: PWMFreq): void {
         let bufr = pins.createBuffer(5);
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
