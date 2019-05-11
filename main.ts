@@ -40,7 +40,7 @@ enum State {
 
 //% weight=70 icon="\uf2db" color=#555555 block="LV8548DC"
 namespace lv8548dc {
-    //% blockId=show_strings block="Init serial tx = %tx rx = %rx"
+    //% blockId=show_strings block="Init LV8548DC serial tx = %tx rx = %rx"
     //% tx.defl=SerialPin.P2
     //% rx.defl=SerialPin.P1
     export function init(tx: SerialPin, rx: SerialPin): void {
@@ -69,7 +69,7 @@ namespace lv8548dc {
         serial.writeBuffer(bufrini)
     }
 
-    //% blockId=lv8548dc_setrotation block="Set %ch motor to %sel"
+    //% blockId=lv8548dc_setrotation block="Set %ch DC motor to %sel"
     export function setRotation(ch: Motor, sel: DriveMode): void {
         let bufr = pins.createBuffer(6);
         bufr.setNumber(NumberFormat.UInt8LE, 0, 0xA5)
@@ -81,7 +81,7 @@ namespace lv8548dc {
         serial.writeBuffer(bufr)
     }
 
-    //% blockId=lv8548dc_setctlvoltage block="Set %ch motor pwm duty to %duty"
+    //% blockId=lv8548dc_setctlvoltage block="Set voltage percent of %ch DC motor to %duty|%%"
     //% duty.min=0 duty.max=100
     export function setCtlVoltage(ch: Motor, duty: number): void {
         let bufr = pins.createBuffer(6);
